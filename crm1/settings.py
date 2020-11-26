@@ -27,7 +27,7 @@ SECRET_KEY = 'zdu*sfsluq5hajowwp)u=w8wzzj63&lwywcmei76s42vl75_ic'
 DEBUG = False
 
 #For Heroku hosting
-ALLOWED_HOSTS = ['crm1-lite.herokuapp.com']
+ALLOWED_HOSTS = ['crm1-lite-live.herokuapp.com']
 
 
 # Application definition
