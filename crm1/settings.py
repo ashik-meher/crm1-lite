@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zdu*sfsluq5hajowwp)u=w8wzzj63&lwywcmei76s42vl75_ic'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#For Heroku hosting
-ALLOWED_HOSTS = []
+# For Heroku hosting
+ALLOWED_HOSTS = ['crm1-lite-live.herokuapp.com']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
 ]
-#For Heroku first middleware used
+# For Heroku first middleware used
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -121,8 +121,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-#For Heroku
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# For Heroku
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 
