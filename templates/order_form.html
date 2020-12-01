@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+
+    <div class="form-group">
+
+        <form id="contact" action="" method="post">
+
+
+            {% csrf_token %}
+
+            {{form.as_p}}
+
+
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+
+
+
+
+
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

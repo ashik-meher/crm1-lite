@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+
+    <div class="form-group">
+
+        <form id="contact" action="{% url 'delete_order' item.id %}" method="post">
+
+            {% csrf_token %}
+
+            <p>Are you sure you want to delete? {{item}}</p>
+
+            <a href="{% url 'dashboard' %}">NO</a>
+
+
+
+
+
+
+
+
+            <button name="confirm" type="submit" id="contact-submit" data-submit="...Sending">Yes</button>
+
+
+
+
+
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
