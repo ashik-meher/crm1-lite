@@ -9,22 +9,15 @@
 
     <div class="form-group">
 
-        <form id="contact" action="{% url 'delete_order' item.id %}" method="post">
+        <div class="card card-body" style="text-align: center; width:50%; margin:auto;">
 
-            {% csrf_token %}
+            <form id="contact" action="{% url 'delete_order' item.id %}" method="post">
 
-            <p>Are you sure you want to delete? {{item}}</p>
+                {% csrf_token %}
 
-            <a href="{% url 'dashboard' %}">NO</a>
+                <p>Are you sure you want to delete? {{item}}</p>
 
-
-
-
-
-
-
-
-            <button name="confirm" type="submit" id="contact-submit" data-submit="...Sending">Yes</button>
+                <a class="btn btn-sm btn-warning" href="{% url 'dashboard' %}">Cancel</a>
 
 
 
@@ -32,7 +25,19 @@
 
 
 
-        </form>
+
+                <button name="confirm" type="submit" id="contact-submit" class="btn btn-sm btn-danger"
+                    data-submit="...Sending">Confirm</button>
+
+
+
+
+
+
+
+            </form>
+
+        </div>
 
     </div>
 

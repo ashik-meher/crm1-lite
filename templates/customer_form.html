@@ -16,17 +16,16 @@
 
                 {% csrf_token %}
 
-                {{formset.management_form}}
-
-                {% for form in formset %}
 
 
 
-                {{form}}
 
-                <hr>
 
-                {% endfor %}
+                {{form.as_p}}
+
+
+
+
 
 
                 <button class="btn btn-success" name="submit" type="submit" id="contact-submit"

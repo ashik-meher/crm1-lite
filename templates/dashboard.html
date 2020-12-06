@@ -8,7 +8,7 @@
         <h5>CUSTOMERS:</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_customer' %}">Create Customer</a>
             <table class="table table-sm">
                 <tr>
 
@@ -33,10 +33,10 @@
     </div>
 
     <div class="col-md-7">
-        <h5>LAST 5 ORDERS</h5>
+        <h5>ALL ORDERS PLACED SO FAR</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_order' %}">Create Order</a>
+
             <table class="table table-sm">
                 <tr>
                     <th>Product</th>
@@ -67,5 +67,16 @@
     </div>
 
 </div>
+<div class="card">
+    <b> <u>Q:</u> Which people bought S-300?</b>
+    <p> <u>Ans:</u> The product orders</p> {{imp}} <br>
+
+    <b>people bought this stuff</b>
+    {% for i in imp %}
+
+    <p>{{i.customer.name}}</p>
+    {% endfor %}
+</div>
+
 
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
+from django.forms import inlineformset_factory
 
 
 # Create your views here.
@@ -23,6 +24,8 @@ def products(request):
 
 def customer(request, pk):
 
+    # that makes avaible the dynamic url to this page associated with customer id
+
     customer = Customer.objects.get(id=pk)
 
     orders = customer.order_set.all()
@@ -35,10 +38,42 @@ def customer(request, pk):
     return render(request, 'customer.html', context)
 
 
+def createCustomer(request):
+    form = CustomerForm()
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('dashboard')
+
+    context = {'form': form}
+
+    return render(request, 'customer_form.html', context)
+
+
+def updateCustomer(request, pk):
+
+    customer = Customer.objects.get(id=pk)
+
+    form = CustomerForm(instance=customer)
+
+    if request.method == 'POST':
+        form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+
+    context = {'customer': customer, 'form': form}
+
+    return render(request, 'customer_form.html', context)
+
+
 def dashboard(request):
     products = Product.objects.all()
     customers = Customer.objects.all()
     orders = Order.objects.all()
+    imp = Order.objects.filter(product__name="S-300")
 
     total_customers = customers.count()
 
@@ -49,22 +84,29 @@ def dashboard(request):
     pending = orders.filter(status='Pending').count()
 
     context = {'products': products, 'customers': customers, 'orders': orders, 'total_orders': total_orders,
-               'total_customers': total_customers, 'delivered': delivered, 'pending': pending}
+               'total_customers': total_customers, 'delivered': delivered, 'pending': pending, 'imp': imp}
 
     return render(request, 'dashboard.html', context)
 
 
-def createOrder(request):
+def createOrder(request, pk):
+    OrderFormSet = inlineformset_factory(
+        Customer, Order, fields=('product', 'status'), extra=3)
 
-    form = OrderForm()
+    customer = Customer.objects.get(id=pk)
+
+    # initial={'customer': customer}
+    #form = OrderForm(initial={'customer': customer})
+    # queryset means ager order thakbe na
+    formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formset = OrderFormSet(request.POST, instance=customer)
+        if formset.is_valid():
+            formset.save()
             return redirect('dashboard')
 
-    context = {'form': form}
+    context = {'formset': formset}
 
     return render(request, 'order_form.html', context)
 
@@ -73,15 +115,15 @@ def updateOrder(request, pk):
 
     order = Order.objects.get(id=pk)
 
-    form = OrderForm(instance=order)
+    formset = OrderForm(instance=order)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST, instance=order)
-        if form.is_valid():
-            form.save()
+        formset = OrderForm(request.POST, instance=order)
+        if formset.is_valid():
+            formset.save()
             return redirect('dashboard')
 
-    context = {'form': form}
+    context = {'formset': formset}
 
     return render(request, 'order_form.html', context)
 
